@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ROSELA Juice Rush</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&family=Hind+Siliguri:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#12041a;--ink:#fff7fb;--mut:rgba(255,230,240,.72);--glass:rgba(255,255,255,.1);--edge:rgba(255,255,255,.26);--hib:#ff2e7e;--tan:#ff9a3c;--man:#ffd23f;--mint:#5cffb1;--aqua:#3ee0ff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html,body{margin:0;min-height:100%}
+body{background:radial-gradient(110% 70% at 0% 0%,#5a0b3a 0,transparent 60%),radial-gradient(90% 60% at 100% 100%,#0b3a52 0,transparent 60%),var(--bg);color:var(--ink);font-family:'Poppins','Hind Siliguri',system-ui,sans-serif;overflow-x:hidden;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+.orb{position:fixed;border-radius:50%;filter:blur(70px);z-index:0;pointer-events:none;animation:drift 14s ease-in-out infinite alternate}
+.o1{width:320px;height:320px;background:var(--hib);top:-100px;left:-100px;opacity:.6}
+.o2{width:300px;height:300px;background:var(--tan);bottom:-100px;right:-90px;opacity:.5;animation-delay:-5s}
+.o3{width:240px;height:240px;background:var(--aqua);top:46%;left:62%;opacity:.3;animation-delay:-9s}
+@keyframes drift{to{transform:translate(40px,-50px) scale(1.15)}}
+#fl{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#fl span{position:absolute;bottom:0;opacity:.2;filter:blur(1px);animation:rise linear infinite}
+@keyframes rise{from{transform:translateY(0) rotate(0)}to{transform:translateY(-115vh) rotate(360deg)}}
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:6;pointer-events:none}
+#app{position:relative;z-index:1;max-width:440px;margin:0 auto;padding:16px}
+.glass{position:relative;background:radial-gradient(120% 90% at 0% 0%,rgba(255,46,126,.18),transparent 60%),linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.05));border:1px solid var(--edge);backdrop-filter:blur(20px) saturate(1.6);-webkit-backdrop-filter:blur(20px) saturate(1.6);border-radius:28px;box-shadow:0 14px 44px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.45)}
+.screen{display:none}.screen.on{display:block;animation:in .45s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes in{from{opacity:0;transform:translateY(18px) scale(.96)}}
+.brand{text-align:center;padding:24px 20px}
+.logo{font-weight:800;font-size:44px;letter-spacing:.05em;margin:4px 0 0;background:linear-gradient(110deg,var(--hib),var(--tan),var(--man),var(--mint),var(--hib));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:300% 0}}
+.bn{font-family:'Hind Siliguri',sans-serif;color:var(--mut);margin:0 0 8px}
+.hero-e{font-size:68px;line-height:1;display:inline-block;filter:drop-shadow(0 8px 18px rgba(255,46,126,.7));animation:bob 2.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(6deg)}}
+p{line-height:1.55;margin:8px 0}
+.rules{list-style:none;padding:0;margin:12px 0;text-align:left;color:var(--mut);font-size:13.5px}
+.rules li{padding:6px 0 6px 30px;position:relative;line-height:1.4}
+.rules li::before{content:attr(data-i);position:absolute;left:0;top:4px;font-size:17px}
+.chip{display:inline-flex;gap:8px;align-items:center;padding:8px 14px;border-radius:99px;background:var(--glass);border:1px solid var(--edge);font-size:13px;margin:6px 0}
+.chip b{font-family:ui-monospace,Menlo,monospace;letter-spacing:.04em;color:var(--mint)}
+.stats{display:flex;gap:10px;margin:10px 0}
+.stats div{flex:1;padding:10px;border-radius:18px;background:rgba(255,255,255,.08);border:1px solid var(--edge);font-size:12px;color:var(--mut)}
+.stats b{display:block;font-size:20px;color:var(--ink)}
+.tries i{font-style:normal;margin:0 2px}.tries i.x{filter:grayscale(1);opacity:.3}
+.btn{display:block;width:100%;border:0;border-radius:18px;padding:16px;font:800 16px 'Poppins',sans-serif;color:#2b0620;background:linear-gradient(135deg,var(--man),var(--tan) 55%,var(--hib));box-shadow:0 8px 26px rgba(255,100,100,.45),inset 0 1px 0 rgba(255,255,255,.7);cursor:pointer;text-decoration:none;text-align:center}
+.btn:active{transform:scale(.97)}
+.btn:disabled{filter:grayscale(.7);opacity:.55;box-shadow:none;cursor:not-allowed}
+.btn.ghost{background:var(--glass);color:var(--ink);box-shadow:none;border:1px solid var(--edge);margin-top:10px;font-weight:700}
+input{width:100%;padding:14px 16px;border-radius:16px;border:1px solid var(--edge);background:rgba(255,255,255,.1);color:var(--ink);font:600 16px 'Poppins',sans-serif;margin:10px 0;outline:0;user-select:text;-webkit-user-select:text}
+input:focus{border-color:var(--mint)}
+.hud{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;margin-bottom:10px;font-weight:700;font-size:13px}
+.hud b{font-size:18px}
+.pw{display:flex;gap:8px;margin-bottom:10px;align-items:center}
+.pw .sc{flex:1;font-weight:800;font-size:15px;padding-left:4px}
+.pw small{color:var(--man);font-weight:700;margin-left:6px}
+.pb{border:1px solid var(--edge);background:var(--glass);color:var(--ink);border-radius:14px;padding:9px 12px;font:700 13px 'Poppins',sans-serif;cursor:pointer;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.pb:disabled{opacity:.35}
+.stage{padding:14px;text-align:center}
+.ticket{min-height:56px;display:flex;justify-content:center;gap:7px;flex-wrap:wrap;align-items:center}
+.slot{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-size:27px;background:rgba(255,255,255,.1);border:1px dashed var(--edge)}
+.slot.ok{border-style:solid;border-color:var(--mint);background:rgba(92,255,177,.2);animation:pop .3s}
+@keyframes pop{50%{transform:scale(1.25)}}
+.memo{height:7px;border-radius:9px;background:rgba(255,255,255,.12);overflow:hidden;margin:8px 0 4px}
+.memo i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--man),var(--hib));transition:width linear}
+.hint{color:var(--mut);font-size:12.5px;min-height:34px;margin:2px 0 6px}
+#fld{width:100%;height:380px;display:block;border-radius:20px;border:1px solid var(--edge);background:rgba(0,0,0,.22);touch-action:manipulation}
+.jar{height:124px;width:100px;margin:4px auto 8px;border-radius:14px 14px 40px 40px;border:2px solid var(--edge);position:relative;overflow:hidden;background:rgba(255,255,255,.06);box-shadow:inset 0 0 24px rgba(255,255,255,.18),0 0 30px rgba(62,224,255,.25)}
+.jar::after{content:"";position:absolute;left:12px;top:8px;width:10px;bottom:20px;border-radius:9px;background:linear-gradient(rgba(255,255,255,.5),rgba(255,255,255,0))}
+.layers{position:absolute;inset:0;display:flex;flex-direction:column-reverse}
+.layers div{flex:1}
+.jar.blend{animation:sh .12s infinite}
+@keyframes sh{50%{transform:translateX(3px) rotate(2deg)}}
+.bar{position:relative;height:38px;border-radius:99px;background:rgba(255,255,255,.12);margin:16px 6px 20px;border:1px solid var(--edge)}
+.zone{position:absolute;top:0;bottom:0;border-radius:99px;background:linear-gradient(90deg,var(--mint),#b5ff4d);box-shadow:0 0 18px rgba(92,255,177,.85);animation:zp 1s ease-in-out infinite alternate}
+@keyframes zp{to{filter:brightness(1.4)}}
+.mk{position:absolute;top:-6px;bottom:-6px;width:8px;margin-left:-4px;border-radius:4px;background:#fff;box-shadow:0 0 16px #fff}
+.toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 14px);transform:translateX(-50%) translateY(-100px);padding:10px 18px;border-radius:99px;font-weight:700;font-size:14px;z-index:8;transition:transform .3s cubic-bezier(.3,1.5,.5,1);background:rgba(30,6,36,.88);border:1px solid var(--edge);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);white-space:nowrap}
+.toast.on{transform:translateX(-50%) translateY(0)}
+#snd{position:fixed;right:12px;top:calc(env(safe-area-inset-top,0px) + 10px);z-index:9;width:42px;height:42px;border-radius:50%;padding:0;font-size:18px}
+.coupon{margin:14px 0;padding:18px;border-radius:22px;border:2px dashed rgba(255,255,255,.5);background:rgba(255,255,255,.08)}
+.pct{font-size:60px;font-weight:800;line-height:1;background:linear-gradient(120deg,var(--man),var(--hib));-webkit-background-clip:text;background-clip:text;color:transparent}
+.code{font:700 21px/1.2 ui-monospace,Menlo,monospace;letter-spacing:.08em;margin-top:8px;word-break:break-all;color:var(--mint);user-select:text;-webkit-user-select:text}
+.shake{animation:sk .35s}
+@keyframes sk{25%{transform:translateX(-9px)}75%{transform:translateX(9px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+button:focus-visible,a:focus-visible{outline:3px solid var(--man);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+<div id="fl"></div><canvas id="fx"></canvas>
+<div class="toast" id="toast"></div>
+<button class="pb" id="snd" aria-label="Toggle sound">🔊</button>
+<main id="app">
+
+<section class="screen glass brand" id="s-login">
+  <div class="hero-e">🌺</div>
+  <h1 class="logo">ROSELA</h1>
+  <p class="bn">Juice Rush · রসেলা জুস চ্যালেঞ্জ</p>
+  <p>Create your player profile. Your ID is generated once and stays with this device.</p>
+  <input id="nick" maxlength="14" placeholder="Your nickname" autocomplete="off">
+  <button class="btn" id="mk1">Create my player ID</button>
+</section>
+
+<section class="screen glass brand" id="s-home">
+  <div class="hero-e">🌺</div>
+  <h1 class="logo">ROSELA</h1>
+  <p class="bn">Juice Rush · রসেলা জুস চ্যালেঞ্জ</p>
+  <div class="chip">👤 <span id="who"></span> <b id="uid"></b></div>
+  <div class="stats">
+    <div>Tries today<b class="tries" id="tries"></b></div>
+    <div>Best score<b id="best">0</b></div>
+  </div>
+  <ul class="rules">
+    <li data-i="👀">Memorize the recipe. It hides, then fruits rain down.</li>
+    <li data-i="🥤">Slide your glass and catch the fruits in exact order. A wrong fruit or 🌶️ costs a life.</li>
+    <li data-i="❄️">❄️ slows time, 🌟 gives bonus points. Every order adds a new twist.</li>
+    <li data-i="⚡">Blend inside the green zone. The final boss needs two hits.</li>
+    <li data-i="🏆">Serve 7 orders in 130 s with 3 lives to win up to 20% off. One coupon per player.</li>
+  </ul>
+  <div id="cbox"></div>
+  <button class="btn" id="go"></button>
+  <p class="bn" id="cd" style="margin-top:10px"></p>
+</section>
+
+<section class="screen" id="s-play">
+  <div class="glass hud"><span>Order <b id="r">1</b>/7</span><span id="lives"></span><span><b id="t">130</b>s</span></div>
+  <div class="pw"><div class="sc"><span id="sc">0</span><small id="cb"></small></div><button class="pb" id="pk">👁 Peek</button><button class="pb" id="sl">⏳ Slow</button></div>
+  <div class="glass stage">
+    <div class="ticket" id="ticket"></div>
+    <div class="memo"><i id="memo"></i></div>
+    <div class="hint" id="hint"></div>
+    <canvas id="fld"></canvas>
+    <div id="blendUI" style="display:none">
+      <div class="jar" id="jar"><div class="layers" id="layers"></div></div>
+      <div class="bar"><div class="zone" id="zone"></div><div class="mk" id="mk"></div></div>
+      <button class="btn" id="blendBtn">BLEND!</button>
+    </div>
+  </div>
+</section>
+
+<section class="screen glass brand" id="s-win">
+  <div class="hero-e">🏆</div>
+  <h2 class="logo" style="font-size:32px">You made it!</h2>
+  <p class="bn">অভিনন্দন! আপনার কুপন নিচে</p>
+  <p>Score <b id="wsc"></b></p>
+  <div class="coupon"><div class="pct" id="wp"></div><div class="bn" style="margin:0">off your order</div><div class="code" id="wc"></div></div>
+  <button class="btn" data-copy="1">Copy code</button>
+  <a class="btn ghost" href="https://roselabd.lovable.app" target="_blank" rel="noopener">Order on ROSELA</a>
+  <button class="btn ghost" id="h1">Back to home</button>
+</section>
+
+<section class="screen glass brand" id="s-lose">
+  <div class="hero-e">🥤</div>
+  <h2 class="logo" style="font-size:30px">Out of juice</h2>
+  <p id="lm"></p>
+  <button class="btn" id="h2">Back to home</button>
+</section>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+const F=[{e:'🍓',c:'#ff3b5c'},{e:'🍊',c:'#ff9a3c'},{e:'🍋',c:'#ffe14d'},{e:'🥭',c:'#ffc233'},{e:'🍍',c:'#f5d20a'},{e:'🍇',c:'#9b5cff'},{e:'🥝',c:'#8fe03a'},{e:'🍉',c:'#ff4f7b'},{e:'🌺',c:'#d6155f'}];
+const BAD=['🌶️','🦠','🧄'],LANEC=['#ff2e7e','#ff9a3c','#ffd23f','#5cffb1'];
+const TOTAL=7,TIME=130,DAILY=3,KEY='rosela_v3';
+const MODS={2:'Rotten wave: more 🌶️ falling',4:'Blackout: fruits vanish mid-air',5:'Mirror: your controls are flipped',6:'Rush: faster rain, less memory time',7:'BOSS: 5 fruits, double blend'};
+let P,lives,round,left,recipe,pos,phase,tick,zc,zw,speed,order,score,combo,blends,pos2=0,ph=0,peeked,slowed,sound=true,got=[],items=[],spawnT=0,slowT=0,tl=1,gx=0,W=300,H=380,LW=75,GY=330,looping=false,last=0,fieldOn=false,mirror=false;
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id))}
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),1500)}
+
+/* ---------- sound ---------- */
+let AC;function ac(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state==='suspended')AC.resume();return AC}
+function tone(f,d=.15,type='sine',v=.15,slide=0,delay=0){if(!sound)return;const c=ac();if(!c)return;const t=c.currentTime+delay,o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.setValueAtTime(f,t);if(slide)o.frequency.exponentialRampToValueAtTime(Math.max(30,f+slide),t+d);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+d+.02)}
+const N=[523,587,659,784,880,1047,1175,1319];
+const sfx={tap:n=>tone(N[n%8],.2,'triangle',.18),bad:()=>{tone(190,.4,'sawtooth',.18,-100);tone(130,.45,'square',.08,-60,.05)},blend:()=>{for(let i=0;i<9;i++)tone(130+i*28,.1,'sawtooth',.06,50,i*.085)},ok:()=>[659,784,988].forEach((f,i)=>tone(f,.2,'triangle',.18,0,i*.08)),win:()=>[523,659,784,1047,1319,1568].forEach((f,i)=>tone(f,.4,'triangle',.2,0,i*.12)),click:()=>tone(440,.07,'sine',.1),tick:()=>tone(900,.05,'square',.05),pow:()=>tone(400,.3,'sine',.18,500),gold:()=>[1047,1319,1568].forEach((f,i)=>tone(f,.15,'sine',.15,0,i*.06))};
+$('snd').onclick=()=>{sound=!sound;$('snd').textContent=sound?'🔊':'🔇';if(sound)sfx.click()};
+
+/* ---------- particles ---------- */
+const cv=$('fx'),cx=cv.getContext('2d');let ps=[],run=false;
+function rs(){cv.width=innerWidth;cv.height=innerHeight;sizeField()}addEventListener('resize',rs);
+function burst(x,y,cols,n=18,up=0){for(let i=0;i<n;i++){const a=Math.random()*6.283,s=2+Math.random()*5;ps.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-up,l:1,c:cols[i%cols.length],r:3+Math.random()*5})}if(!run){run=true;requestAnimationFrame(fxl)}}
+function fxl(){cx.clearRect(0,0,cv.width,cv.height);ps=ps.filter(p=>p.l>0);for(const p of ps){p.x+=p.vx;p.y+=p.vy;p.vy+=.15;p.l-=.016;cx.globalAlpha=Math.max(p.l,0);cx.fillStyle=p.c;cx.beginPath();cx.arc(p.x,p.y,p.r,0,6.283);cx.fill()}cx.globalAlpha=1;if(ps.length)requestAnimationFrame(fxl);else{run=false;cx.clearRect(0,0,cv.width,cv.height)}}
+function confetti(){const cols=['#ff2e7e','#ff9a3c','#ffd23f','#5cffb1','#3ee0ff','#fff'];let k=0;const h=setInterval(()=>{burst(Math.random()*innerWidth,innerHeight*.35,cols,26,5);if(++k>9)clearInterval(h)},220)}
+(function(){const fl=$('fl');for(let i=0;i<14;i++){const s=document.createElement('span');s.textContent=F[i%9].e;s.style.cssText=`left:${Math.random()*100}%;font-size:${20+Math.random()*26}px;animation-duration:${16+Math.random()*16}s;animation-delay:-${Math.random()*30}s`;fl.appendChild(s)}})();
+
+/* ---------- profile ---------- */
+function today(){return new Date().toLocaleDateString('en-CA')}
+function load(){let p=null;try{p=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+  if(!p){try{const c=document.cookie.split('; ').find(x=>x.startsWith('rosela_p='));if(c)p=JSON.parse(decodeURIComponent(c.split('=')[1]))}catch(e){}}
+  if(!p){try{const o=JSON.parse(localStorage.getItem('rosela_v2'));if(o&&o.uid)p=o}catch(e){}}
+  P=p}
+function save(){const s=JSON.stringify(P);try{localStorage.setItem(KEY,s)}catch(e){}try{document.cookie='rosela_p='+encodeURIComponent(s)+';max-age=315360000;path=/;SameSite=Lax'}catch(e){}}
+function newUid(){const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',b=new Uint8Array(8);crypto.getRandomValues(b);const s=[...b].map(x=>A[x%32]).join('');return'RSL-'+s.slice(0,4)+'-'+s.slice(4)}
+function rollDay(){if(P.day!==today()){P.day=today();P.used=0;save()}}
+function coupon(){const r=Math.random(),pct=r<.35?5:r<.65?10:r<.9?15:20,A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<4;i++)s+=A[Math.random()*32|0];let sum=0;for(const ch of pct+s)sum+=ch.charCodeAt(0);return{pct,code:`ROSELA${pct}-${s}${A[sum%32]}`}}
+$('mk1').onclick=()=>{ac();sfx.ok();P={uid:newUid(),name:($('nick').value.trim()||'Player').slice(0,14),day:today(),used:0,best:0,plays:0,coupon:null};save();home()};
+function home(){rollDay();const l=DAILY-P.used;
+  $('who').textContent=P.name;$('uid').textContent=P.uid;$('best').textContent=P.best;
+  $('tries').innerHTML=Array.from({length:DAILY},(_,i)=>`<i class="${i<l?'':'x'}">🍹</i>`).join('');
+  $('cbox').innerHTML=P.coupon?`<div class="coupon"><div class="bn" style="margin:0">Your coupon · ${P.coupon.pct}% off</div><div class="code">${P.coupon.code}</div></div><button class="btn ghost" data-copy="1" style="margin:0 0 10px">Copy code</button><a class="btn ghost" style="margin:0 0 10px" href="https://roselabd.lovable.app" target="_blank" rel="noopener">Order on ROSELA</a>`:'';
+  const b=$('go');b.disabled=!!P.coupon||l<=0;b.textContent=P.coupon?'Coupon already claimed ✓':l<=0?'No tries left today':`Start challenge · ${l} ${l>1?'tries':'try'} left`;
+  show('s-home');cd()}
+function cd(){if(!$('s-home').classList.contains('on'))return;if(!P.coupon&&DAILY-P.used<=0){const n=new Date(),m=new Date(n);m.setHours(24,0,0,0);const d=Math.max(0,m-n)/1000|0,p=x=>String(x).padStart(2,'0');$('cd').textContent=`New tries in ${p(d/3600|0)}:${p(d%3600/60|0)}:${p(d%60)}`;if(P.day!==today())home()}else $('cd').textContent=''}
+setInterval(cd,1000);
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-copy]');if(!b||!P.coupon)return;sfx.click();try{await navigator.clipboard.writeText(P.coupon.code);toast('Code copied ✓')}catch(x){toast('Press and hold the code to copy')}});
+
+/* ---------- field ---------- */
+const fld=$('fld'),fc=fld.getContext('2d');
+function sizeField(){const w=fld.clientWidth;if(!w)return;const d=Math.min(devicePixelRatio||1,2);W=w;fld.width=W*d;fld.height=H*d;fc.setTransform(d,0,0,d,0,0);LW=W/4;GY=H-52;gx=tl*LW+LW/2}
+function setLane(l){tl=Math.max(0,Math.min(3,l))}
+fld.addEventListener('pointerdown',e=>{if(phase!=='show'&&phase!=='catch')return;const r=fld.getBoundingClientRect();let l=Math.floor((e.clientX-r.left)/(r.width/4));if(mirror)l=3-l;setLane(l)});
+addEventListener('keydown',e=>{if(phase!=='show'&&phase!=='catch')return;const d=e.key==='ArrowLeft'?-1:e.key==='ArrowRight'?1:0;if(d)setLane(tl+(mirror?-d:d))});
+function gpath(x,y){fc.beginPath();fc.moveTo(x-30,y-32);fc.lineTo(x+30,y-32);fc.lineTo(x+21,y+32);fc.lineTo(x-21,y+32);fc.closePath()}
+function draw(){
+  if(!fieldOn)return;
+  fc.clearRect(0,0,W,H);
+  for(let i=0;i<4;i++){const g=fc.createLinearGradient(0,0,0,H);g.addColorStop(0,LANEC[i]+'00');g.addColorStop(1,LANEC[i]+'38');fc.fillStyle=g;fc.fillRect(i*LW+2,0,LW-4,H)}
+  fc.textAlign='center';fc.textBaseline='middle';fc.font='34px "Segoe UI Emoji","Apple Color Emoji",serif';
+  for(const it of items){const x=it.lane*LW+LW/2;let a=1;if(round===4&&it.y>H*.28&&it.y<H*.66)a=.05;fc.save();fc.globalAlpha=a;fc.translate(x,it.y);fc.rotate(it.rot*.25);if(it.t==='bad'){fc.shadowColor='#ff2244';fc.shadowBlur=14}else if(it.t==='gold'){fc.shadowColor='#ffd23f';fc.shadowBlur=18}fc.fillText(it.e,0,0);fc.restore()}
+  const n=recipe?recipe.length:3,lh=64/n;
+  fc.save();gpath(gx,GY);fc.fillStyle='rgba(255,255,255,.14)';fc.fill();fc.clip();got.forEach((c,i)=>{fc.fillStyle=c;fc.fillRect(gx-32,GY+32-(i+1)*lh,64,lh+1)});fc.restore();
+  gpath(gx,GY);fc.lineWidth=2.5;fc.strokeStyle='rgba(255,255,255,.85)';fc.stroke();
+  fc.fillStyle='rgba(255,255,255,.5)';fc.fillRect(gx-22,GY-26,4,40);
+  if(slowT>0){fc.fillStyle='rgba(62,224,255,.14)';fc.fillRect(0,0,W,H);fc.font='700 13px Poppins,sans-serif';fc.fillStyle='#3ee0ff';fc.fillText('❄ slow-mo '+slowT.toFixed(1)+'s',W/2,16)}
+  if(phase==='show'){fc.fillStyle='rgba(18,4,26,.55)';fc.fillRect(0,0,W,H);fc.font='800 26px Poppins,sans-serif';fc.fillStyle='#ffd23f';fc.fillText('Memorize!',W/2,H/2)}
+}
+function spawn(){
+  const L=Math.random()*4|0;if(items.some(i=>i.lane===L&&i.y<75))return;
+  const r=Math.random(),bp=round===2?.32:.18+round*.012,it={lane:L,y:-30,rot:0,sp:(Math.random()-.5)*3};
+  if(r<bp){it.t='bad';it.e=BAD[Math.random()*3|0]}
+  else if(r<bp+.05){it.t='ice';it.e='❄️'}
+  else if(r<bp+.085){it.t='gold';it.e='🌟'}
+  else{it.t='f';it.f=Math.random()<.38?recipe[pos]:F[Math.random()*9|0];it.e=it.f.e}
+  items.push(it)}
+function updCatch(dt){
+  const d=dt*(slowT>0?.4:1);slowT=Math.max(0,slowT-dt);
+  gx+=(tl*LW+LW/2-gx)*Math.min(1,dt*13);
+  spawnT-=d;if(spawnT<=0){spawn();spawnT=Math.max(.3,.8-.075*round)*(.75+Math.random()*.5)}
+  const v=140+round*34+(round>=6?40:0);
+  for(const it of items){it.y+=v*d;it.rot+=d*it.sp}
+  for(const it of items){if(it.done)continue;const ix=it.lane*LW+LW/2;if(it.y>GY-36&&it.y<GY+30&&Math.abs(ix-gx)<LW*.42){it.done=true;grab(it);if(phase!=='catch')break}}
+  items=items.filter(i=>!i.done&&i.y<H+40);
+}
+function grab(it){
+  const r=fld.getBoundingClientRect(),px=r.left+gx,py=r.top+GY;
+  if(it.t==='f'){
+    if(it.f===recipe[pos]){sfx.tap(pos);got.push(it.f.c);pos++;combo++;addScore(Math.round(100*(1+Math.min(combo,12)*.1)));burst(px,py,[it.f.c,'#fff'],14);renderTicket(false);
+      if(pos===recipe.length){phase='blend';items=[];setTimeout(startBlend,600)}}
+    else fail('Wrong fruit!');
+  }else if(it.t==='bad')fail('Yuck! Rotten!');
+  else if(it.t==='ice'){slowT=2.5;sfx.pow();burst(px,py,['#3ee0ff','#fff'],16);toast('❄ Slow-mo!')}
+  else{addScore(500);sfx.gold();burst(px,py,['#ffd23f','#fff'],22);toast('🌟 +500')}
+}
+function updBlend(dt){ph+=dt*speed*(round>=5?1+.45*Math.sin(performance.now()/260):1);const m=ph%2;pos2=m<1?m:2-m;$('mk').style.left=(pos2*100)+'%'}
+function frame(n){if(!looping)return;const dt=Math.min(.05,(n-last)/1000||0);last=n;if(phase==='catch')updCatch(dt);else if(phase==='blend'||phase==='mix')updBlend(dt);draw();requestAnimationFrame(frame)}
+
+/* ---------- game flow ---------- */
+function start(){ac();rollDay();if(P.coupon||P.used>=DAILY)return;P.used++;P.plays++;save();
+  lives=3;round=1;left=TIME;score=0;combo=0;peeked=slowed=false;$('pk').disabled=$('sl').disabled=false;addScore(0);
+  show('s-play');sizeField();clearInterval(tick);let sec=-1;
+  tick=setInterval(()=>{left-=.1;const c=Math.ceil(Math.max(0,left));$('t').textContent=c;if(left<=10&&c!==sec&&left>0){sec=c;sfx.tick()}if(left<=0)end(false,'Time is up. The queue went home thirsty.')},100);
+  sfx.ok();looping=true;last=performance.now();requestAnimationFrame(frame);next()}
+function addScore(n){score+=n;$('sc').textContent=score.toLocaleString();$('cb').textContent=combo>1?`🔥 x${(1+Math.min(combo,12)*.1).toFixed(1)}`:''}
+function hearts(){$('lives').textContent='❤️'.repeat(lives)+'🖤'.repeat(3-lives);$('r').textContent=round}
+function renderTicket(reveal){$('ticket').innerHTML=recipe.map((f,i)=>i<pos?`<div class="slot ok">${f.e}</div>`:`<div class="slot">${reveal?f.e:'❓'}</div>`).join('')}
+function next(){
+  hearts();
+  const len=round===TOTAL?5:3+Math.floor((round-1)/2.5);
+  recipe=shuffle(F).slice(0,len);pos=0;got=[];items=[];slowT=0;phase='show';mirror=round===5;
+  $('blendUI').style.display='none';fld.style.display='block';fieldOn=true;sizeField();
+  renderTicket(true);
+  let ms=900+len*650;if(round>=6)ms*=.7;
+  $('hint').textContent='Memorize the recipe…'+(MODS[round]?` ⚠ ${MODS[round]}`:'');
+  const m=$('memo');m.style.transition='none';m.style.width='100%';m.offsetWidth;m.style.transition=`width ${ms}ms linear`;m.style.width='0%';
+  const my=round;setTimeout(()=>{if(phase!=='show'||my!==round)return;phase='catch';spawnT=.3;renderTicket(false);$('hint').textContent='Catch them in order!'+(MODS[round]?` ⚠ ${MODS[round]}`:'')},ms);
+}
+$('pk').onclick=()=>{if((phase!=='catch'&&phase!=='show')||peeked)return;peeked=true;$('pk').disabled=true;sfx.pow();renderTicket(true);setTimeout(()=>{if(phase==='catch'||phase==='show')renderTicket(false)},1800)};
+$('sl').onclick=()=>{if(phase!=='catch'||slowed)return;slowed=true;$('sl').disabled=true;slowT=4;sfx.pow()};
+function setZone(){zw=Math.max(.09,.24-.025*round);zc=zw/2+.04+Math.random()*(.92-zw);speed=.9+.24*round;const z=$('zone');z.style.left=((zc-zw/2)*100)+'%';z.style.width=(zw*100)+'%'}
+function startBlend(){
+  if(phase!=='blend')return;
+  fieldOn=false;fld.style.display='none';$('blendUI').style.display='block';$('memo').style.width='0%';
+  $('layers').innerHTML=got.map(c=>`<div style="background:linear-gradient(180deg,${c},${c}bb)"></div>`).join('');
+  blends=round===TOTAL?2:1;setZone();ph=0;
+  $('hint').textContent=(blends>1?'BOSS: hit the green zone twice!':'Tap BLEND when the marker is inside the green zone')+(round>=5?' · the marker wobbles':'');
+}
+$('blendBtn').addEventListener('click',()=>{
+  if(phase!=='blend')return;const d=Math.abs(pos2-zc);
+  if(d<=zw/2){
+    phase='mix';sfx.blend();$('jar').classList.add('blend');
+    const r=$('mk').getBoundingClientRect();burst(r.left,r.top,['#fff','#5cffb1','#ffd23f'],26);
+    const bonus=200+Math.round((1-d/(zw/2))*300);addScore(bonus);toast(bonus>=450?'PERFECT! 🍹 +'+bonus:'Nice blend +'+bonus);
+    setTimeout(()=>{$('jar').classList.remove('blend');sfx.ok();
+      if(blends>1){blends--;phase='blend';setZone();$('hint').textContent='One more hit!'}
+      else{round++;if(round>TOTAL)end(true);else next()}},850);
+  }else fail('Missed the zone!');
+});
+function fail(m){
+  if(phase==='fail'||phase==='end')return;const back=phase;phase='fail';lives--;combo=0;items=[];addScore(0);hearts();toast(m+' −1 ❤️');sfx.bad();try{navigator.vibrate&&navigator.vibrate(200)}catch(e){}
+  $('app').classList.add('shake');setTimeout(()=>$('app').classList.remove('shake'),350);
+  if(lives<=0)setTimeout(()=>end(false,'No lives left. The blender needs a rest.'),700);
+  else setTimeout(()=>{if(phase==='fail'){phase=back;if(back==='catch')spawnT=.6}},950);
+}
+function end(win,msg){
+  if(phase==='end')return;clearInterval(tick);looping=false;fieldOn=false;phase='end';
+  if(win)score+=Math.round(left*10);
+  P.best=Math.max(P.best,score);
+  if(win){if(!P.coupon)P.coupon=coupon();save();
+    $('wsc').textContent=score.toLocaleString();$('wp').textContent=P.coupon.pct+'%';$('wc').textContent=P.coupon.code;show('s-win');sfx.win();confetti();
+  }else{save();const l=DAILY-P.used;$('lm').textContent=`${msg} You reached order ${Math.min(round,TOTAL)} of ${TOTAL} with ${score.toLocaleString()} points. ${l>0?l+(l>1?' tries':' try')+' left today.':'No tries left today. Come back tomorrow!'}`;show('s-lose')}
+}
+$('go').onclick=start;$('h1').onclick=$('h2').onclick=()=>{sfx.click();home()};
+rs();load();if(P&&P.uid)home();else show('s-login');
+</script>
+</body>
+</html>
